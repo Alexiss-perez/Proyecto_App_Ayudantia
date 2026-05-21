@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alumno</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<section class="student-section">
+  <div class="section-title">
+    <h2>Inicio de trabajo</h2>
+  </div>
+
+  <button class="camera-btn" id="startCameraBtn">Abrir cámara para escanear QR</button>
+
+  <div id="reader" style="width: 100%; max-width: 400px; margin-top: 20px; display: none;"></div>
+
+  <p id="scanResult" class="scan-result"></p>
+</section>
+<body class="student-page">
+  <div class="student-shell">
+    <header class="student-header">
+      <div>
+        <h1>Panel del Alumno</h1>
+        <p>Resumen de horas y tareas asignadas</p>
+      </div>
+      <button class="logout-btn" onclick="window.location.href='index.html'">Salir</button>
+    </header>
+
+    <main class="student-content">
+      <section class="student-summary">
+        <article class="student-card">
+          <h3>Horas trabajadas</h3>
+          <p class="big-number">24 hrs</p>
+        </article>
+
+        <article class="student-card">
+          <h3>Horas restantes</h3>
+          <p class="big-number">16 hrs</p>
+        </article>
+
+        <article class="student-card">
+          <h3>Tareas completadas</h3>
+          <p class="big-number">5</p>
+        </article>
+
+        <article class="student-card">
+          <h3>Tareas pendientes</h3>
+          <p class="big-number">3</p>
+        </article>
+      </section>
+
+      <section class="student-section">
+        <div class="section-title">
+          <h2>Tareas por hacer</h2>
+        </div>
+
+        <div class="task-list">
+          <article class="task-item pending">
+            <div>
+              <h4>Ordenar material de biblioteca</h4>
+              <p>Asignada para hoy</p>
+            </div>
+            <span>Pendiente</span>
+          </article>
+
+          <article class="task-item pending">
+            <div>
+              <h4>Actualizar registro de asistencia</h4>
+              <p>Asignada para mañana</p>
+            </div>
+            <span>Pendiente</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="student-section">
+        <div class="section-title">
+          <h2>Tareas completadas</h2>
+        </div>
+
+        <div class="task-list">
+          <article class="task-item done">
+            <div>
+              <h4>Recepción de estudiantes</h4>
+              <p>Completada hoy</p>
+            </div>
+            <span>Hecha</span>
+          </article>
+
+          <article class="task-item done">
+            <div>
+              <h4>Revisión de documentos</h4>
+              <p>Completada ayer</p>
+            </div>
+            <span>Hecha</span>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

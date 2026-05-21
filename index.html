@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Ayudantías</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-page">
+  <div class="login-container">
+  <div class="avatar">👤</div>
+
+  <form id="loginForm" class="login-box">
+    <input type="hidden" id="selectedRole" />
+
+    <div class="role-buttons">
+      <button type="button" class="role-btn" onclick="selectRole('admin')">Administrador</button>
+      <button type="button" class="role-btn" onclick="selectRole('alumno')">Alumno</button>
+      <button type="button" class="role-btn" onclick="selectRole('departamento')">Departamento</button>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Username" />
+    </div>
+
+    <div class="input-group password-group">
+      <input type="password" id="password" placeholder="Password" />
+      <span class="eye">👁</span>
+    </div>
+
+    <div class="options">
+      <label>
+        <input type="checkbox" />
+        Remember me
+      </label>
+      <a href="#">Forgot password?</a>
+    </div>
+
+    <button type="submit">LOGIN</button>
+  </form>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
