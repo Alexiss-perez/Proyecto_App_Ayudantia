@@ -9,7 +9,6 @@
 <body class="login-page">
 
   <div class="registro-container">
-
     <div class="registro-header">
       <h3>¡Comencemos!</h3>
       <p>Completa tus datos para crear tu cuenta</p>
@@ -21,6 +20,9 @@
 
       <label>Correo institucional</label>
       <input type="email" id="correo" placeholder="ej. nombre@duocuc.cl" required>
+
+      <label>RUT</label>
+      <input type="text" id="rut" placeholder="Ej. 12.345.678-9" required>
 
       <label>Nombre</label>
       <input type="text" placeholder="Ej. Mateo" required>
@@ -61,7 +63,7 @@
         <option>Prefiero no mencionar</option>
       </select>
 
-        <h2>Credenciales</h2>
+      <h2>Credenciales</h2>
 
       <label>Contraseña</label>
       <div class="password-group">
@@ -108,31 +110,54 @@
       input.type = input.type === "password" ? "text" : "password";
     }
 
+    function validarRUT(rut) {
+      rut = rut.replace(/\./g, "").replace("-", "").toUpperCase();
+
+      if (rut.length < 8) return false;
+
+      const cuerpo = rut.slice(0, -1);
+      const dv = rut.slice(-1);
+
+      let suma = 0;
+      let multiplo = 2;
+
+      for (let i = cuerpo.length - 1; i >= 0; i--) {
+        suma += parseInt(cuerpo[i]) * multiplo;
+        multiplo = multiplo < 7 ? multiplo + 1 : 2;
+      }
+
+      let dvEsperado = 11 - (suma % 11);
+      dvEsperado = dvEsperado === 11 ? "0" : dvEsperado === 10 ? "K" : String(dvEsperado);
+
+      return dv === dvEsperado;
+    }
+
     document.getElementById("registroForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
       const correo = document.getElementById("correo").value;
+      const rut = document.getElementById("rut").value;
       const pass1 = document.getElementById("password1").value;
       const pass2 = document.getElementById("password2").value;
 
       if (!correo.endsWith("@duocuc.cl")) {
         alert("Debes usar tu correo institucional @duocuc.cl");
-        e.preventDefault();
+        return;
+      }
+
+      if (!validarRUT(rut)) {
+        alert("RUT inválido");
         return;
       }
 
       if (pass1 !== pass2) {
         alert("Las contraseñas no coinciden");
-        e.preventDefault();
         return;
       }
 
       alert("Registro completado correctamente");
-        window.location.replace("login.html");
+      window.location.replace("login.html");
     });
-
-    // 🔥 REDIRECCIÓN AL REFRESCAR
-    window.onbeforeunload = function () {
-      window.location.href = "login.html";
-    };
   </script>
 
 </body>
