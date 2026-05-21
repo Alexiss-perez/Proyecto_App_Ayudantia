@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-page">
+
+  <div class="registro-container">
+
+    <div class="registro-header">
+      <h3>¡Comencemos!</h3>
+      <p>Completa tus datos para crear tu cuenta</p>
+    </div>
+
+    <form class="login-box" id="registroForm">
+
+      <h2>Datos personales</h2>
+
+      <label>Correo institucional</label>
+      <input type="email" id="correo" placeholder="ej. nombre@duocuc.cl" required>
+
+      <label>Nombre</label>
+      <input type="text" placeholder="Ej. Mateo" required>
+
+      <label>Apellido</label>
+      <input type="text" placeholder="Ej. Díaz" required>
+
+      <label>Fecha de nacimiento</label>
+      <div class="date-group">
+        <select required>
+          <option value="">Día</option>
+          <script>
+            for(let i=1;i<=31;i++) document.write(`<option>${i}</option>`);
+          </script>
+        </select>
+
+        <select required>
+          <option value="">Mes</option>
+          <option>Enero</option><option>Febrero</option><option>Marzo</option>
+          <option>Abril</option><option>Mayo</option><option>Junio</option>
+          <option>Julio</option><option>Agosto</option><option>Septiembre</option>
+          <option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+        </select>
+
+        <select required>
+          <option value="">Año</option>
+          <script>
+            for(let i=2010;i>=1970;i--) document.write(`<option>${i}</option>`);
+          </script>
+        </select>
+      </div>
+
+      <label>Género</label>
+      <select required>
+        <option value="">Seleccionar</option>
+        <option>Hombre</option>
+        <option>Mujer</option>
+        <option>Prefiero no mencionar</option>
+      </select>
+
+        <h2>Credenciales</h2>
+
+      <label>Contraseña</label>
+      <div class="password-group">
+        <input id="password1" type="password" placeholder="Contraseña" required>
+        <span class="eye" onclick="verPass('password1')">👁</span>
+      </div>
+
+      <label>Confirmar contraseña</label>
+      <div class="password-group">
+        <input id="password2" type="password" placeholder="Confirmar contraseña" required>
+        <span class="eye" onclick="verPass('password2')">👁</span>
+      </div>
+
+      <h2>Datos bancarios</h2>
+
+      <label>Banco</label>
+      <input type="text" placeholder="Ej. Banco Estado" required>
+
+      <label>Tipo de cuenta</label>
+      <select required>
+        <option value="">Seleccionar tipo</option>
+        <option>Cuenta Corriente</option>
+        <option>Cuenta Vista</option>
+        <option>Cuenta RUT</option>
+        <option>Cuenta de Ahorro</option>
+      </select>
+
+      <label>Número de cuenta</label>
+      <input type="text" placeholder="Ej. 123456789" required>
+
+      <button type="submit">Completar registro</button>
+
+      <div class="extra-links">
+        <span>¿Ya tienes cuenta?</span>
+        <a href="login.html">Login</a>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    function verPass(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    document.getElementById("registroForm").addEventListener("submit", function(e) {
+      const correo = document.getElementById("correo").value;
+      const pass1 = document.getElementById("password1").value;
+      const pass2 = document.getElementById("password2").value;
+
+      if (!correo.endsWith("@duocuc.cl")) {
+        alert("Debes usar tu correo institucional @duocuc.cl");
+        e.preventDefault();
+        return;
+      }
+
+      if (pass1 !== pass2) {
+        alert("Las contraseñas no coinciden");
+        e.preventDefault();
+        return;
+      }
+
+      alert("Registro completado correctamente");
+        window.location.replace("login.html");
+    });
+
+    // 🔥 REDIRECCIÓN AL REFRESCAR
+    window.onbeforeunload = function () {
+      window.location.href = "login.html";
+    };
+  </script>
+
+</body>
+</html>
