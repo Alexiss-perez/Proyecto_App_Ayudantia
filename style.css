@@ -407,21 +407,317 @@ th {
   color: #111;
 }
 
-/* ALUMNOS */
+/* ===== ALUMNO ===== */
 
-.cards-grid {
+.student-page {
+  min-height: 100vh;
+  background: #f2f4f8;
+}
+
+.student-shell {
+  padding: 28px;
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #111, #2a2a2a);
+  color: white;
+  padding: 26px;
+  border-radius: 18px;
+  border-left: 6px solid #f57c00;
+  margin-bottom: 24px;
+}
+
+.student-header h1 {
+  font-size: 34px;
+}
+
+.student-header p {
+  margin-top: 6px;
+  color: #ddd;
+}
+
+.student-content {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.student-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
-.student-card h3 {
-  color: #111;
-  margin-bottom: 8px;
+.student-card {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  border-top: 5px solid #f57c00;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.student-card p {
-  color: #777;
+.big-number {
+  font-size: 30px;
+  font-weight: bold;
+  color: #f57c00;
+  margin-top: 10px;
+}
+
+.student-section {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+}
+
+.section-title h2 {
+  margin-bottom: 18px;
+  color: #111;
+}
+
+.task-list {
+  display: grid;
+  gap: 14px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border-left: 5px solid #f57c00;
+}
+
+.task-item span {
+  font-weight: bold;
+  color: #f57c00;
+}
+
+.task-item.done {
+  border-left-color: #00b894;
+}
+
+.task-item.done span {
+  color: #00b894;
+}
+
+.camera-btn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.camera-btn:hover {
+  background: #f57c00;
+}
+
+@media (max-width: 900px) {
+  .student-summary {
+    grid-template-columns: 1fr;
+  }
+}
+/* ===== ALUMNO PALETA ADMIN ===== */
+
+.student-page {
+  background: #f2f4f8 !important;
+}
+
+.student-header {
+  background: linear-gradient(135deg, #111, #2a2a2a) !important;
+  border-left: 6px solid #f57c00 !important;
+}
+
+.student-section,
+.student-card {
+  background: white !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+}
+
+.student-card {
+  border-top: 5px solid #f57c00 !important;
+  border-left: none !important;
+}
+
+.big-number {
+  color: #f57c00 !important;
+}
+
+.camera-btn,
+.logout-btn {
+  background: #f57c00 !important;
+  color: white !important;
+}
+
+.camera-btn:hover,
+.logout-btn:hover {
+  background: #111 !important;
+}
+
+.task-item {
+  background: #f8fafc !important;
+  border-left: 5px solid #f57c00 !important;
+}
+
+.task-item span {
+  color: #f57c00 !important;
+}
+
+/* TAREAS */
+
+.task-item.pending {
+  border-left: 5px solid #ff4d4d !important;
+}
+
+.task-item.pending span {
+  color: #ff4d4d !important;
+}
+
+.task-item.done {
+  border-left: 5px solid #00b894 !important;
+}
+
+.task-item.done span {
+  color: #00b894 !important;
+}
+
+/* ===== NUEVO CONTENIDO ALUMNO ===== */
+
+.student-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #ffb15c, #f57c00);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.notification {
+  background: #fff7ed;
+  border-left: 5px solid #f57c00;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: #444;
+}
+
+/* BOTÓN COMPLETAR */
+.task-item button {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.task-item button:hover {
+  background: #f57c00;
+}
+
+/* TABLA HISTORIAL */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+th {
+  color: #111;
+  background: #f9fafb;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .student-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SOPORTE ALUMNO ARREGLADO */
+
+.support-form {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.support-form input,
+.support-form select,
+.support-form textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+}
+
+.support-form textarea {
+  grid-column: 1 / 3;
+  min-height: 110px;
+  resize: vertical;
+}
+
+.support-form button {
+  grid-column: 1 / 3;
+  justify-self: start;
+  background: #f57c00;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.support-form button:hover {
+  background: #111;
+}
+
+.support-student-list {
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  .support-form {
+    grid-template-columns: 1fr;
+  }
+
+  .support-form textarea,
+  .support-form button {
+    grid-column: auto;
+  }
 }
 
 /* CALENDARIO */
@@ -1069,4 +1365,216 @@ th {
   .department-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* PERFIL TOPBAR */
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-btn {
+  position: relative;
+  background: white;
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  padding: 3px 7px;
+  border-radius: 50%;
+}
+
+.profile-menu {
+  position: relative;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.profile-btn img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f57c00;
+}
+
+.dropdown,
+.notification-box {
+  position: absolute;
+  right: 28px;
+  top: 80px;
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: #fff7ed;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* MODAL PERFIL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.profile-img {
+  width: 95px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #f57c00;
+  margin: 10px 0;
+}
+
+/* ARREGLO MODAL PERFIL */
+
+.modal-content {
+  max-width: 520px;
+  padding: 28px;
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.modal-content input[type="text"],
+.modal-content input:not([type]) {
+  font-size: 16px;
+}
+
+.modal-content input[type="file"] {
+  background: #fff7ed;
+  border: 2px dashed #f57c00;
+  cursor: pointer;
+}
+
+.modal-content button {
+  background: #f57c00;
+  color: white;
+  border: none;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.modal-content button:hover {
+  background: #111;
+}
+
+/* ARREGLO DROPDOWN PERFIL */
+
+.dropdown {
+  width: 170px;
+  right: 28px;
+  top: 78px;
+}
+
+.dropdown button {
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+#soporte form {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  max-width: 600px;
+}
+
+#soporte input,
+#soporte textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+#soporte textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+#soporte button {
+  width: fit-content;
+  background: #f57c00;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.notification-box {
+  cursor: pointer;
+}
+
+.notification-box:hover {
+  background: #fff0dc;
+  transform: scale(1.02);
 }
