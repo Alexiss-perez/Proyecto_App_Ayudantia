@@ -1,104 +1,325 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Alumno</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<section class="student-section">
-  <div class="section-title">
-    <h2>Inicio de trabajo</h2>
-  </div>
 
-  <button class="camera-btn" id="startCameraBtn">Abrir cámara para escanear QR</button>
+<body class="admin-dashboard">
 
-  <div id="reader" style="width: 100%; max-width: 400px; margin-top: 20px; display: none;"></div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <h2>Duoc UC</h2>
+  <h3>Perfil: Alumno</h3>
 
-  <p id="scanResult" class="scan-result"></p>
-</section>
-<body class="student-page">
-  <div class="student-shell">
-    <header class="student-header">
-      <div>
-        <h1>Panel del Alumno</h1>
-        <p>Resumen de horas y tareas asignadas</p>
+  <button class="side-link active" onclick="showSection('dashboard', this)">
+    <i class="fas fa-house"></i> Dashboard
+  </button>
+
+  <button class="side-link" onclick="showSection('tareas', this)">
+    <i class="fas fa-list-check"></i> Tareas
+  </button>
+
+  <button class="side-link" onclick="showSection('horas', this)">
+    <i class="fas fa-clock"></i> Horas
+  </button>
+
+  <button class="side-link" onclick="showSection('soporte', this)">
+    <i class="fas fa-headset"></i> Soporte
+  </button>
+</aside>
+
+<!-- MAIN -->
+<main class="dashboard-main">
+
+<header class="dashboard-header">
+  <h1 id="pageTitle">Dashboard</h1>
+
+  <div class="topbar-actions">
+
+    <button class="icon-btn" onclick="toggleNotifications()">
+      <i class="fas fa-bell"></i>
+      <span class="badge">2</span>
+    </button>
+
+    <div class="profile-menu">
+      <button class="profile-btn" onclick="toggleProfileMenu()">
+        <img id="topProfileImg" src="img/default-user.png">
+        <span id="topProfileName">Usuario</span>
+      </button>
+
+      <div id="profileDropdown" class="dropdown hidden">
+        <button onclick="showProfileModal()">Editar perfil</button>
+        <button onclick="window.location.href='login.html'">Cerrar sesión</button>
       </div>
-      <button class="logout-btn" onclick="window.location.href='login.html'"> Salir </button>
-    </header>
+    </div>
 
-    <main class="student-content">
-      <section class="student-summary">
-        <article class="student-card">
-          <h3>Horas trabajadas</h3>
-          <p class="big-number">24 hrs</p>
-        </article>
-
-        <article class="student-card">
-          <h3>Horas restantes</h3>
-          <p class="big-number">16 hrs</p>
-        </article>
-
-        <article class="student-card">
-          <h3>Tareas completadas</h3>
-          <p class="big-number">5</p>
-        </article>
-
-        <article class="student-card">
-          <h3>Tareas pendientes</h3>
-          <p class="big-number">3</p>
-        </article>
-      </section>
-
-      <section class="student-section">
-        <div class="section-title">
-          <h2>Tareas por hacer</h2>
-        </div>
-
-        <div class="task-list">
-          <article class="task-item pending">
-            <div>
-              <h4>Ordenar material de biblioteca</h4>
-              <p>Asignada para hoy</p>
-            </div>
-            <span>Pendiente</span>
-          </article>
-
-          <article class="task-item pending">
-            <div>
-              <h4>Actualizar registro de asistencia</h4>
-              <p>Asignada para mañana</p>
-            </div>
-            <span>Pendiente</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="student-section">
-        <div class="section-title">
-          <h2>Tareas completadas</h2>
-        </div>
-
-        <div class="task-list">
-          <article class="task-item done">
-            <div>
-              <h4>Recepción de estudiantes</h4>
-              <p>Completada hoy</p>
-            </div>
-            <span>Hecha</span>
-          </article>
-
-          <article class="task-item done">
-            <div>
-              <h4>Revisión de documentos</h4>
-              <p>Completada ayer</p>
-            </div>
-            <span>Hecha</span>
-          </article>
-        </div>
-      </section>
-    </main>
   </div>
+</header>
+
+<!-- NOTIFICACIÓN CLICK -->
+<div id="notificationBox" class="notification-box hidden" onclick="goToTasks()">
+  <p>📌 Tienes tareas pendientes</p>
+</div>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="student-section">
+
+  <div class="dashboard-panel">
+    <h2>Información del alumno</h2>
+    <div class="student-info-grid" id="infoBox"></div>
+  </div>
+
+  <div class="dashboard-panel">
+    <h2>Inicio de trabajo</h2>
+    <button class="camera-btn" onclick="startTimer()">Escanear QR</button>
+    <h3 id="timer">Tiempo trabajado: 00:00:00</h3>
+  </div>
+
+  <div class="dashboard-cards">
+    <div class="student-card">
+      <h3>Horas trabajadas</h3>
+      <p class="big-number">24 hrs</p>
+    </div>
+
+    <div class="student-card">
+      <h3>Horas restantes</h3>
+      <p class="big-number">16 hrs</p>
+    </div>
+
+    <div class="student-card">
+      <h3>Tareas completadas</h3>
+      <p class="big-number">4</p>
+    </div>
+
+    <div class="student-card">
+      <h3>Tareas pendientes</h3>
+      <p class="big-number">2</p>
+    </div>
+  </div>
+
+  <div class="dashboard-panel">
+    <h2>Progreso</h2>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:60%;">60%</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- TAREAS -->
+<section id="tareas" class="student-section" style="display:none;">
+
+  <div class="dashboard-panel">
+    <h2>Notificaciones</h2>
+    <p class="notification">Tienes 2 tareas pendientes.</p>
+  </div>
+
+  <div class="dashboard-panel">
+    <h2>Tareas por hacer</h2>
+
+    <div class="task-list" id="pendingTasks">
+      <article class="task-item pending">
+        <div>
+          <h4>Ordenar material de biblioteca</h4>
+          <p>Asignada para hoy</p>
+        </div>
+        <button onclick="completeTask(this)">Completar</button>
+      </article>
+
+      <article class="task-item pending">
+        <div>
+          <h4>Actualizar registro de asistencia</h4>
+          <p>Asignada para mañana</p>
+        </div>
+        <button onclick="completeTask(this)">Completar</button>
+      </article>
+    </div>
+  </div>
+
+  <div class="dashboard-panel">
+    <h2>Tareas completadas</h2>
+
+    <div class="task-list" id="doneTasks">
+      <article class="task-item done">
+        <div>
+          <h4>Recepción de estudiantes</h4>
+          <p>Completada hoy</p>
+        </div>
+        <span>Hecha</span>
+      </article>
+    </div>
+  </div>
+
+</section>
+
+<!-- HORAS -->
+<section id="horas" class="student-section" style="display:none;">
+  <div class="dashboard-panel">
+    <h2>Historial de horas</h2>
+
+    <table>
+      <tr>
+        <th>Fecha</th>
+        <th>Entrada</th>
+        <th>Salida</th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td>22/05</td>
+        <td>09:00</td>
+        <td>13:00</td>
+        <td>4 hrs</td>
+      </tr>
+      <tr>
+        <td>21/05</td>
+        <td>10:00</td>
+        <td>14:00</td>
+        <td>4 hrs</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- SOPORTE -->
+<section id="soporte" class="student-section" style="display:none;">
+  <div class="dashboard-panel">
+    <h2>Soporte</h2>
+
+    <form onsubmit="sendReport(event)">
+      <input type="text" placeholder="Título" required>
+      <textarea placeholder="Describe el problema"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- MODAL PERFIL -->
+<div id="profileModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Editar perfil</h3>
+
+    <input id="profileName">
+    <input id="profileRole">
+    <input type="file" id="profilePhoto" accept="image/*">
+
+    <div class="modal-actions">
+      <button onclick="saveProfile()">Guardar</button>
+      <button onclick="closeProfileModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+/* SECCIONES */
+function showSection(id, btn) {
+  document.querySelectorAll(".student-section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
+
+  document.querySelectorAll(".side-link").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.getElementById("pageTitle").textContent = btn.textContent.trim();
+}
+
+/* IR A TAREAS DESDE NOTIFICACIÓN */
+function goToTasks(){
+  const btn = document.querySelector("button[onclick*='tareas']");
+  showSection("tareas", btn);
+  notificationBox.classList.add("hidden");
+}
+
+/* PERFIL */
+function showProfileModal(){
+  profileModal.classList.remove("hidden");
+  profileName.value = localStorage.getItem("name") || "Usuario";
+  profileRole.value = localStorage.getItem("role") || "Informática / Biblioteca";
+}
+
+function closeProfileModal(){
+  profileModal.classList.add("hidden");
+}
+
+function saveProfile(){
+  const name = profileName.value;
+  const role = profileRole.value;
+  const file = profilePhoto.files[0];
+
+  localStorage.setItem("name", name);
+  localStorage.setItem("role", role);
+
+  if(file){
+    const reader = new FileReader();
+    reader.onload = e => {
+      localStorage.setItem("photo", e.target.result);
+      applyProfile();
+    };
+    reader.readAsDataURL(file);
+  } else applyProfile();
+
+  closeProfileModal();
+}
+
+function applyProfile(){
+  const name = localStorage.getItem("name") || "Usuario";
+  const role = localStorage.getItem("role") || "Informática / Biblioteca";
+  const photo = localStorage.getItem("photo");
+
+  topProfileName.textContent = name;
+  if(photo) topProfileImg.src = photo;
+
+  infoBox.innerHTML = `
+    <p><strong>Nombre:</strong> ${name}</p>
+    <p><strong>Carrera:</strong> ${role.split("/")[0]}</p>
+    <p><strong>Departamento:</strong> ${role.split("/")[1] || "Biblioteca"}</p>
+  `;
+}
+
+window.onload = applyProfile;
+
+/* TAREAS */
+function completeTask(btn){
+  const item = btn.parentElement;
+  item.classList.remove("pending");
+  item.classList.add("done");
+  btn.remove();
+
+  const span = document.createElement("span");
+  span.textContent = "Hecha";
+  item.appendChild(span);
+
+  doneTasks.appendChild(item);
+}
+
+/* OTROS */
+function toggleProfileMenu(){
+  profileDropdown.classList.toggle("hidden");
+}
+
+function toggleNotifications(){
+  notificationBox.classList.toggle("hidden");
+}
+
+/* TIMER */
+let sec=0;
+function startTimer(){
+  setInterval(()=>{
+    sec++;
+    timer.textContent = "Tiempo trabajado: "+sec+"s";
+  },1000);
+}
+
+function sendReport(e){
+  e.preventDefault();
+  alert("Reporte enviado ✔");
+}
+
+</script>
+
 </body>
 </html>
