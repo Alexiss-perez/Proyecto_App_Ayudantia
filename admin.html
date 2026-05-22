@@ -1,165 +1,242 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Administrador</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="admin-page">
-  <div class="admin-shell">
-    <header class="top-header">
-      <div class="brand-area">
-        <span class="brand-title">HARVEST</span>
-        <span class="brand-subtitle">administración</span>
-      </div>
+<body class="admin-dashboard">
+  <aside class="sidebar">
+    <h2>Duoc UC</h2>
+    <h3>Perfil: Administrador</h3>
 
-      <div class="user-area">
-        <span>Usuario: Administrador</span>
-        <button class="logout-btn" onclick="window.location.href='login.html'"> Salir </button>
-      </div>
+    <button class="side-link active" onclick="showSection('dashboard', this)">
+      <i class="fas fa-house"></i> Dashboard
+    </button>
+    <button class="side-link" onclick="showSection('horas', this)">
+      <i class="fas fa-clock"></i> Horas
+    </button>
+    <button class="side-link" onclick="showSection('tareas', this)">
+      <i class="fas fa-list-check"></i> Tareas
+    </button>
+    <button class="side-link" onclick="showSection('alumnos', this)">
+      <i class="fas fa-users"></i> Alumnos
+    </button>
+    <button class="side-link" onclick="showSection('calendario', this)">
+      <i class="fas fa-calendar-days"></i> Calendario
+    </button>
+    <button class="side-link" onclick="showSection('reportes', this)">
+      <i class="fas fa-chart-pie"></i> Reportes
+    </button>
+    <button class="side-link" onclick="showSection('soporte', this)">
+      <i class="fas fa-headset"></i> Soporte
+    </button>
+  </aside>
+
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+      <h1 id="pageTitle">Dashboard</h1>
+      <input type="text" placeholder="Buscar...">
+      <button class="logout-btn" onclick="window.location.href='login.html'">Salir</button>
     </header>
 
-    <nav class="top-nav">
-      <button class="nav-btn active" onclick="showSection('horas', this)">Horas</button>
-      <button class="nav-btn" onclick="showSection('tareas', this)">Tareas</button>
-      <button class="nav-btn" onclick="showSection('alumnos', this)">Alumnos</button>
-      <button class="nav-btn" onclick="showSection('soporte', this)">Soporte</button>
-      <button class="nav-btn" onclick="showSection('contacto', this)">Contacto</button>
-    </nav>
-
-    <main class="admin-content">
-      <section id="horas" class="section">
-        <div class="section-title">
-          <h1>Horas</h1>
-          <button class="action-btn" onclick="openModal('horas')">Agregar</button>
+    <section id="dashboard" class="admin-section">
+      <div class="dashboard-top">
+        <div class="welcome-card">
+          <h2>Bienvenido Administrador</h2>
+          <p>Resumen general del sistema Duoc UC.</p>
         </div>
 
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Ingreso</th>
-                <th>Salida</th>
-                <th>Estado</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody id="horasTable">
-              <tr>
-                <td>Juan Pérez</td>
-                <td>09:00</td>
-                <td>13:00</td>
-                <td>Activo</td>
-                <td><button class="delete-btn" onclick="deleteRow(this)">Eliminar</button></td>
-              </tr>
-              <tr>
-                <td>María Soto</td>
-                <td>10:00</td>
-                <td>14:00</td>
-                <td>Activo</td>
-                <td><button class="delete-btn" onclick="deleteRow(this)">Eliminar</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="summary-card">
+          <h3>Actividad mensual</h3>
+          <p>78%</p>
+          <span>+12% este mes</span>
         </div>
-      </section>
+      </div>
 
-      <section id="tareas" class="section" style="display:none;">
-        <div class="section-title">
-          <h1>Tareas</h1>
-          <button class="action-btn" onclick="openModal('tareas')">Agregar</button>
-        </div>
+      <div class="dashboard-cards">
+        <div class="dash-card"><h3>Total alumnos</h3><p>128</p><span>Registrados</span></div>
+        <div class="dash-card"><h3>Horas</h3><p>540</p><span>Este mes</span></div>
+        <div class="dash-card"><h3>Tareas</h3><p>34</p><span>Pendientes</span></div>
+        <div class="dash-card"><h3>Solicitudes</h3><p>12</p><span>Por revisar</span></div>
+      </div>
 
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr>
-                <th>Alumno</th>
-                <th>Tarea</th>
-                <th>Estado</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody id="tareasTable">
-              <tr>
-                <td>Juan Pérez</td>
-                <td>Ordenar material</td>
-                <td>Completada</td>
-                <td><button class="delete-btn" onclick="deleteRow(this)">Eliminar</button></td>
-              </tr>
-              <tr>
-                <td>María Soto</td>
-                <td>Actualizar registro</td>
-                <td>Pendiente</td>
-                <td><button class="delete-btn" onclick="deleteRow(this)">Eliminar</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <div class="dashboard-content-grid">
+        <div class="dashboard-panel chart-card">
+          <div class="chart-title">
+            <h2>Estadísticas</h2>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
 
-      <section id="alumnos" class="section" style="display:none;">
-        <div class="section-title">
-          <h1>Alumnos</h1>
-          <button class="action-btn" onclick="openModal('alumnos')">Agregar</button>
-        </div>
+          <div class="chart-area">
+            <div class="grid-lines">
+  <span>10h</span>
+  <span>8h</span>
+  <span>6h</span>
+  <span>4h</span>
+  <span>2h</span>
+  <span>0h</span>
+</div>
 
-        <div class="cards-grid" id="alumnosGrid">
-          <article class="info-card">
-            <h3>Juan Pérez</h3>
-            <p>Biblioteca</p>
-            <button class="delete-btn" onclick="deleteCard(this)">Eliminar</button>
-          </article>
-          <article class="info-card">
-            <h3>María Soto</h3>
-            <p>Punto Estudiantil</p>
-            <button class="delete-btn" onclick="deleteCard(this)">Eliminar</button>
-          </article>
-          <article class="info-card">
-            <h3>Pedro Rojas</h3>
-            <p>Laboratorio</p>
-            <button class="delete-btn" onclick="deleteCard(this)">Eliminar</button>
-          </article>
-        </div>
-      </section>
-
-      <section id="soporte" class="section" style="display:none;">
-        <div class="section-title">
-          <h1>Soporte</h1>
-          <p>Ayuda técnica e incidencias del sistema.</p>
-        </div>
-        <div class="support-box">
-          <p>Si ocurre un problema con el registro, aquí puedes reportarlo para revisión.</p>
-        </div>
-      </section>
-
-      <section id="contacto" class="section" style="display:none;">
-        <div class="section-title">
-          <h1>Contacto</h1>
-          <p>Datos de administración y comunicación.</p>
-        </div>
-        <div class="support-box">
-          <p>Correo: administracion@universidad.cl</p>
-          <p>Teléfono: +56 9 1234 5678</p>
-        </div>
-      </section>
-    </main>
+<div class="chart-bars">
+  <div class="bar-box">
+    <div class="orange-bar" style="height:60%"></div>
+    <p>Lun</p>
+    <span>6 hrs</span>
   </div>
 
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2 id="modalTitle">Agregar</h2>
-
-      <form id="modalForm">
-        <div id="modalFields"></div>
-        <button type="submit" class="action-btn">Guardar</button>
-      </form>
-    </div>
+  <div class="bar-box">
+    <div class="orange-bar" style="height:80%"></div>
+    <p>Mar</p>
+    <span>8 hrs</span>
   </div>
 
-  <script src="script.js"></script>
+  <div class="bar-box">
+    <div class="orange-bar" style="height:50%"></div>
+    <p>Mié</p>
+    <span>5 hrs</span>
+  </div>
+
+  <div class="bar-box active">
+    <div class="orange-bar" style="height:90%"></div>
+    <p>Jue</p>
+    <span>9 hrs</span>
+  </div>
+
+  <div class="bar-box">
+    <div class="orange-bar" style="height:70%"></div>
+    <p>Vie</p>
+    <span>7 hrs</span>
+  </div>
+
+  <div class="bar-box">
+    <div class="orange-bar" style="height:40%"></div>
+    <p>Sáb</p>
+    <span>4 hrs</span>
+  </div>
+
+  <div class="bar-box">
+    <div class="orange-bar" style="height:30%"></div>
+    <p>Dom</p>
+    <span>3 hrs</span>
+  </div>
+</div>
+          <div class="chart-footer">
+            <div class="footer-item">
+              <p>Horas</p>
+              <span class="up">540</span>
+            </div>
+            <div class="footer-item">
+              <p>Pendientes</p>
+              <span class="down">34</span>
+            </div>
+            <div class="footer-item">
+              <p>Completadas</p>
+              <span class="up">102</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-panel">
+          <h2>Actividad reciente</h2>
+          <ul class="activity-list">
+            <li>Juan registró ingreso 09:00</li>
+            <li>María completó una tarea</li>
+            <li>Pedro fue asignado a laboratorio</li>
+            <li>Nueva solicitud pendiente</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="horas" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Horas</h2>
+        <table>
+          <tr><th>Alumno</th><th>Ingreso</th><th>Salida</th><th>Estado</th></tr>
+          <tr><td>Juan Pérez</td><td>09:00</td><td>13:00</td><td>Activo</td></tr>
+          <tr><td>María Soto</td><td>10:00</td><td>14:00</td><td>Activo</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="tareas" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Tareas</h2>
+        <table>
+          <tr><th>Alumno</th><th>Tarea</th><th>Estado</th></tr>
+          <tr><td>Juan Pérez</td><td>Ordenar material</td><td>Completada</td></tr>
+          <tr><td>María Soto</td><td>Actualizar registro</td><td>Pendiente</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="alumnos" class="admin-section" style="display:none;">
+      <div class="cards-grid">
+        <div class="student-card"><h3>Juan Pérez</h3><p>Biblioteca</p></div>
+        <div class="student-card"><h3>María Soto</h3><p>Laboratorio</p></div>
+      </div>
+    </section>
+
+    <section id="calendario" class="admin-section" style="display:none;">
+      <div class="calendar-layout">
+        <div class="calendar-sidebar">
+          <button class="create-event-btn">+ Crear evento</button>
+          <p class="calendar-text">Eventos</p>
+          <div class="event-item green">Práctica ayudantía</div>
+          <div class="event-item blue">Reunión departamento</div>
+          <div class="event-item orange">Reporte mensual</div>
+          <div class="event-item red">Solicitud pendiente</div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-header">
+            <button>Prev</button>
+            <h2>Mayo 2026</h2>
+            <button class="today-btn">Hoy</button>
+          </div>
+
+          <div class="calendar-grid">
+            <div class="day-name">Dom</div><div class="day-name">Lun</div><div class="day-name">Mar</div><div class="day-name">Mié</div><div class="day-name">Jue</div><div class="day-name">Vie</div><div class="day-name">Sáb</div>
+            <div></div><div></div><div></div><div></div><div>1</div><div>2</div><div>3</div>
+            <div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+            <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
+            <div>18</div><div>19</div><div>20</div><div class="active-day">21 <span>Reunión</span></div><div>22</div><div>23</div><div>24</div>
+            <div>25</div><div>26 <span class="event-blue">Reporte</span></div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reportes" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Reportes</h2>
+        <p>Resumen del sistema.</p>
+      </div>
+    </section>
+
+    <section id="soporte" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Soporte</h2>
+        <p>Ayuda técnica.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function showSection(id, btn) {
+      document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
+      document.getElementById(id).style.display = "block";
+
+      document.querySelectorAll(".side-link").forEach(link => link.classList.remove("active"));
+      btn.classList.add("active");
+
+      document.getElementById("pageTitle").textContent = btn.textContent.trim();
+    }
+  </script>
+
 </body>
 </html>
