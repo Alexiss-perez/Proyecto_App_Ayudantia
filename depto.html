@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Departamento</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="admin-dashboard">
+
+  <aside class="sidebar">
+    <h2>Duoc UC</h2>
+    <h3>Perfil: Departamento</h3>
+
+    <button class="side-link active" onclick="showDeptSection('home', this)">
+      <i class="fas fa-house"></i> Home
+    </button>
+    <button class="side-link" onclick="showDeptSection('calendario', this)">
+      <i class="fas fa-calendar-days"></i> Calendario
+    </button>
+    <button class="side-link" onclick="showDeptSection('alumnos', this)">
+      <i class="fas fa-users"></i> Alumnos
+    </button>
+    <button class="side-link" onclick="showDeptSection('soporte', this)">
+      <i class="fas fa-headset"></i> Soporte
+    </button>
+    <button class="side-link" onclick="showDeptSection('evidencia', this)">
+      <i class="fas fa-image"></i> Evidencia
+    </button>
+  </aside>
+
+  <main class="dashboard-main">
+
+    <header class="dashboard-header">
+      <h1 id="pageTitle">Home</h1>
+      <span>Usuario: biblioteca</span>
+      <button class="logout-btn" onclick="window.location.href='login.html'">Salir</button>
+    </header>
+
+    <section id="home" class="admin-section">
+      <div class="dashboard-panel depto-home">
+        <h2>Panel de Departamentos</h2>
+        <p>Gestión general de los 10 departamentos de trabajo</p>
+
+        <div class="home-cards">
+          <div class="info-card"><h3>Solicitudes</h3><p>Revisar solicitudes de alumnos.</p></div>
+          <div class="info-card"><h3>Reportes</h3><p>Ver reportes del sistema.</p></div>
+          <div class="info-card"><h3>Configuración</h3><p>Ajustes generales del departamento.</p></div>
+        </div>
+
+        <div class="department-grid">
+          <div class="department-card"><h3>Departamento 1</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 2</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 3</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 4</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 5</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 6</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 7</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 8</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 9</h3><p>Alumnos asignados y tareas activas.</p></div>
+          <div class="department-card"><h3>Departamento 10</h3><p>Alumnos asignados y tareas activas.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calendario" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Calendario</h2>
+        <div class="calendar-toolbar">
+          <button onclick="changeMonth(-1)">Prev</button>
+          <button onclick="goToday()">Hoy</button>
+          <button onclick="changeMonth(1)">Next</button>
+          <h2 id="monthTitle"></h2>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </div>
+    </section>
+
+    <section id="alumnos" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Alumnos</h2>
+        <div class="list-box">
+          <div class="student-item">Alumno 1</div>
+          <div class="student-item">Alumno 2</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soporte" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Soporte</h2>
+        <button onclick="openModal('solicitud')">Solicitud</button>
+        <button onclick="openModal('reporte')">Reporte</button>
+      </div>
+    </section>
+
+    <section id="evidencia" class="admin-section" style="display:none;">
+      <div class="dashboard-panel">
+        <h2>Evidencia</h2>
+        <button onclick="openModal('evidencia')">Nueva evidencia</button>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="modalTitle"></h3>
+      <form>
+        <div id="modalFields"></div>
+        <div class="modal-actions">
+          <button type="submit">Guardar</button>
+          <button type="button" onclick="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentDate = new Date();
+
+    function showDeptSection(id, btn) {
+      document.querySelectorAll(".admin-section").forEach(sec => sec.style.display = "none");
+      document.getElementById(id).style.display = "block";
+
+      document.querySelectorAll(".side-link").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      document.getElementById("pageTitle").textContent = btn.textContent.trim();
+
+      if (id === "calendario") renderCalendar();
+    }
+
+    function openModal(tipo) {
+      const modal = document.getElementById("modal");
+      const title = document.getElementById("modalTitle");
+      const fields = document.getElementById("modalFields");
+
+      modal.classList.remove("hidden");
+
+      if (tipo === "solicitud") {
+        title.textContent = "Hoja de Solicitud";
+        fields.innerHTML = `
+          <input type="text" placeholder="Nombre departamento">
+          <input type="date">
+          <input type="text" placeholder="Título">
+          <textarea placeholder="Descripción"></textarea>
+        `;
+      }
+
+      if (tipo === "reporte") {
+        title.textContent = "Hoja de Reporte";
+        fields.innerHTML = `
+          <input type="text" placeholder="Nombre departamento">
+          <input type="date">
+          <input type="text" placeholder="Título">
+          <textarea placeholder="Descripción"></textarea>
+        `;
+      }
+
+      if (tipo === "evidencia") {
+        title.textContent = "Hoja de Evidencia";
+        fields.innerHTML = `
+          <input type="text" placeholder="Título">
+          <input type="text" placeholder="Nombre alumno">
+          <input type="date">
+          <textarea placeholder="Descripción"></textarea>
+          <div class="image-box">
+            <p>Agregar imagen</p>
+            <input type="file">
+          </div>
+        `;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById("calendarGrid");
+      const title = document.getElementById("monthTitle");
+
+      grid.innerHTML = "";
+
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const months = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+      title.textContent = months[month] + " " + year;
+
+      ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"].forEach(d => {
+        const el = document.createElement("div");
+        el.className = "day-name";
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const totalDays = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        grid.appendChild(document.createElement("div"));
+      }
+
+      for (let d = 1; d <= totalDays; d++) {
+        const cell = document.createElement("div");
+        cell.className = "day-cell";
+        cell.textContent = d;
+        grid.appendChild(cell);
+      }
+    }
+
+    function changeMonth(v) {
+      currentDate.setMonth(currentDate.getMonth() + v);
+      renderCalendar();
+    }
+
+    function goToday() {
+      currentDate = new Date();
+      renderCalendar();
+    }
+  </script>
+
+</body>
+</html>

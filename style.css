@@ -803,3 +803,270 @@ th {
   width: 100% !important;
 }
 
+/* ===== DEPTO CON ESTILO ADMIN ===== */
+
+.sidebar h3 {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.admin-section {
+  width: 100%;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+/* Cards depto */
+.student-card,
+.student-item,
+.support-item {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border-left: 5px solid #f57c00;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.student-card h3 {
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.student-card p,
+.student-item,
+.support-item {
+  color: #666;
+}
+
+.list-box {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* Botones internos */
+.dashboard-panel > button,
+.calendar-toolbar button {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.dashboard-panel > button:hover,
+.calendar-toolbar button:hover {
+  background: #f57c00;
+}
+
+/* Calendario */
+.calendar-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.calendar-toolbar h2 {
+  margin-left: auto;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-name,
+.day-cell {
+  min-height: 90px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+}
+
+.day-name {
+  min-height: auto !important;
+  background: #111 !important;
+  color: white !important;
+  text-align: center;
+  font-weight: bold;
+}
+
+.day-cell:hover {
+  background: #fff3e6;
+  border-color: #f57c00;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.modal-content h3 {
+  margin-bottom: 16px;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+}
+
+.modal-content textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.image-box {
+  border: 2px dashed #2563eb;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  background: #f8fafc;
+  margin-bottom: 12px;
+}
+
+.image-box p {
+  margin-bottom: 10px;
+  color: #334155;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.modal-actions button[type="submit"] {
+  background: #f57c00;
+  color: white;
+}
+
+.modal-actions button[type="button"] {
+  background: #e5e7eb;
+}
+
+/* Responsive depto */
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* HOME DEPTO ORDENADO */
+
+#home .dashboard-top {
+  display: grid;
+}
+
+.depto-home {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.depto-home h2 {
+  font-size: 30px;
+  color: #111;
+}
+
+.depto-home > p {
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.info-card {
+  background: #fff;
+  border-top: 5px solid #f57c00;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+}
+
+.info-card h3 {
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.department-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.department-card {
+  background: #fff7ed;
+  border: 1px solid #ffd2a3;
+  border-left: 5px solid #f57c00;
+  padding: 18px;
+  border-radius: 16px;
+  transition: 0.3s;
+}
+
+.department-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(245,124,0,0.18);
+}
+
+.department-card h3 {
+  color: #f57c00;
+  margin-bottom: 8px;
+}
+
+.department-card p {
+  color: #555;
+}
+
+@media (max-width: 900px) {
+  .home-cards,
+  .department-grid {
+    grid-template-columns: 1fr;
+  }
+}
